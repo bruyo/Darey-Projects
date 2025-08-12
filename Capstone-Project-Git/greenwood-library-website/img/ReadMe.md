@@ -74,3 +74,20 @@ feature upcoming community events.
 ![event-editor](event-editor.JPG)
 
 ![event-content](event-content.JPG)
+
+
+3. Contact_Us
+
+'vim contact_us.html'
+
+![contact_us-editor](contact_us-editor.JPG)
+
+![contact_us-content](contact_us-content.JPG)
+
+
+- Stage, commit and push the changes directly to *main branch*.
+
+'git add .'
+
+![staging](main-website-changes.JPG)
+
