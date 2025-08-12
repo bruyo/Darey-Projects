@@ -16,3 +16,61 @@ feature upcoming community events.
 - Create a Repository on GitHub.
 
 1. Name it greenwood-library-website
+
+![greenwood-repository-creeation](greenwood-repo.JPG)
+
+### Task 
+
+- Create in the main branch using a *visual studio code editor*, the files for the each web pages.
+
+1. home.html
+
+'touch home.html'
+
+![home-page](home.JPG)
+
+2. about_us.html
+
+'touch about_us.html
+
+![home-page](about_us.JPG)
+
+3. events.html
+
+'touch events.html'
+
+![home-page](events.JPG)
+
+4. contact_us.html
+
+'touch contact_us.html'
+
+![home-page](contact_us.JPG)
+
+- Add content into each of the files.
+
+1. Homepage
+
+'vim home.html'
+
+![home-page-editor](home-editor.JPG)
+
+![home-page-content](homepage-content.JPG)
+
+
+2. About-Us
+
+'vim about_us.html'
+
+![about_us-editor](about_us-editor.JPG)
+
+![about_us-content](about_us-content.JPG)
+
+
+3. Events
+
+'vim events.html'
+
+![event-editor](event-editor.JPG)
+
+![event-content](event-content.JPG)
