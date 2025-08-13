@@ -198,4 +198,85 @@ We are going to repeat same flow for Jamie's work on the Events Page. Jamie's wo
 
 - Create Jamie's branch
 
-'git branch 
+'git branch update-events'
+
+![update-events-branch](update-events-branch.JPG)
+
+- Switch to a new branch named *update-events*.
+
+'git switch update-events'
+
+![update-events-branch-switch](update-events-switch.JPG)
+
+- Add a new file *update-events.html* to represent the Update Events Section:
+
+'touch update-events.html'
+
+![update-events-file](update-events.JPG)
+
+
+- Add a random text content into the file. 
+
+'vim update-events.html'
+
+![update-events-editor](update-events-editor.JPG)
+
+![update-events-content](update-events-content.JPG)
+
+
+5. Stage, commit and push the changes with a message like "*Add update events section*".
+
+'git add .'
+
+![Jamie's-staging](update-events-changes.JPG)
+
+'git commit -m "Add update events section"'
+
+![update-events-commit](update-events-commit.JPG)
+
+- Push the update-events branch to GitHub.
+
+'git push --set-upstream origin update-events'
+
+![update-events-push](update-events-push.JPG)
+
+
+### Raise a Pull Request (PR) for Jamie's work:
+
+- Create a new "Pull request" by going to GitHub.
+
+![pull-request](Pull-request-jamie.JPG)
+
+- Compare changes between the main branch and update-events branch by clicking on "Compare & pull request".
+
+![pull-request-Jamie](Pull-request-update-events.JPG)
+
+
+- Add a title and description of the changes and click on "Create pull request".
+
+![add-description-to-update-events](changes-review-update-events.JPG)
+
+8. Merge Jamie's work to the main branch.
+
+- Click on "Merge pull request".
+
+![merge-pull-request](merge-update-events.JPG)
+
+- Click on "Confirm merge".
+
+![confirm-merge](confirm-merge-update-events)
+
+![merged-book-reviews](merged-request-update-events.JPG)
+
+- Switch to the main branch.
+
+'git switch main'
+
+![switch-main-branch](branch-switch-update-events-to-main.JPG)
+
+- Pull the latest changes.
+
+'git pull origin update-events"
+
+![pull-latest-changes-to-main-branch](pull-changes-update-events.JPG)
+
