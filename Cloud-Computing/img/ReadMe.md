@@ -303,4 +303,97 @@ Let's recall that Mary is a data analyst, therefore she need to be added as a us
 
 ### Testing
 
-- login to John.
+### login to aws management console and iput John login details.
+
+'https://665626472897.signin.aws.amazon.com/console'
+
+![John Signin](signin-John.JPG)
+
+- Reset password for John.
+
+![Password Reset](John-PR.JPG)
+
+![Resetted PW](Reseted-PW-John.JPG)
+
+Recall that John is a developer and has only permission and access to *Development-Team* resources which is EC2 instance.
+
+- Snip up an EC2 instance. On the search bar, type EC2 and click on EC2 on dropdown menu.
+
+![EC2 Instance](EC2-instance.JPG)
+
+- Click on instance on the EC2 dashboard and click on *launch instance*
+
+![EC2 dashboard](EC2-dashboard.JPG)
+
+![Launch Instance](launch-instance.JPG)
+
+- Name your EC2 instance.
+
+![Name Instance](Zappy-Server.JPG)
+
+- Select your opearting syatem (Virtual machine). For this project we select the free-tier *Ubuntu* OS.
+
+![Select OS](Select-OS.JPG)
+
+- Create a keypair for your instance.
+
+![Keypair](Key-Pair.JPG)
+
+![Create Keypair](Create-keypair.JPG)
+
+![Create Keypair](Create-keypair.JPG)
+
+- Select the created keypair.
+
+![select Keypair](select-keypair.JPG)
+
+- Create a Security Group.
+
+![Security Group](Create-Security-Group.JPG)
+
+
+- Click on *Launch Instance*
+
+![Launch Instance](Launch-EC2.JPG)
+
+![successful Launch](success-launch.JPG)
+
+
+### login to aws management console and iput Mary login details.
+
+'https://665626472897.signin.aws.amazon.com/console'
+
+![Mary Signin](Mary-signin.JPG)
+
+- Reset password for John.
+
+![Password Reset](Mary-PR.JPG)
+
+![Resetted PW](Reseted-PW-Mary.JPG)
+
+Recall that Mary is a data analyst and has only permission and access to *Analyst-Team* resources which is S3.
+
+- Snip up S3. On the search bar, type S3 and click on S3 on dropdown menu.
+
+![S3 dropdown menu](S3.JPG)
+
+- Click on *Create bucket*
+
+![Create bucket](Create-bucket.JPG)
+
+![Name bucket](Name-bucket.JPG)
+
+![Choose bucket](choose-bucket.JPG)
+
+![bucket access](bucket-access.JPG)
+
+![bucket encryption](bucket-encryption.JPG)
+
+![bucket versioning](bucket-versioning.JPG)
+
+- Click on *Create bucket*
+
+![Launch bucket](launch-bucket.JPG)
+
+
+![Created bucket](Created-bucket.JPG)
