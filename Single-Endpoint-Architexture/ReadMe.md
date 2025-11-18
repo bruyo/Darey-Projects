@@ -260,7 +260,10 @@ After setting up EC2 instance, configuring S3 bucket, and establishing the rever
 
 - Verify that the application responds to requests and functions correctly without any reverse proxy interference.
 
+'13.220.98.187'
+
 ![EC2-Testing](./img/Testing-direct)
+
 
 2. S3 Bucket Access via Reverse Proxy.
 
@@ -268,4 +271,8 @@ After setting up EC2 instance, configuring S3 bucket, and establishing the rever
 
 - Check that the reverse proxy correctly routes the request to the S3 bucket and that the content is served without any issues.
 
-'curl -I https://zappy-e-bank.s3.amazonaws.com/index.html'
+'http://zappy-e-bank.s3-website.eu-north-1.amazonaws.com'
+
+
+![Testiing-S3-bucket](./img/Testing-S3)
+
