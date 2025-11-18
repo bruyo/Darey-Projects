@@ -260,9 +260,9 @@ After setting up EC2 instance, configuring S3 bucket, and establishing the rever
 
 - Verify that the application responds to requests and functions correctly without any reverse proxy interference.
 
-'13.220.98.187'
+'http://98.90.104.121/'
 
-![EC2-Testing](./img/Testing-direct)
+![Testing-with-EC2](./img/Testing-direct.JPG)
 
 
 2. S3 Bucket Access via Reverse Proxy.
@@ -274,5 +274,18 @@ After setting up EC2 instance, configuring S3 bucket, and establishing the rever
 'http://zappy-e-bank.s3-website.eu-north-1.amazonaws.com'
 
 
-![Testiing-S3-bucket](./img/Testing-S3)
+![Testiing-S3-bucket](./img/Testing-S3.JPG)
+
+### Validation Points:
+
+- Consistency in Access confirmed that the Elastic IP remain stable across reboots, eliminating the need to adjust access configurations ferquently.
+
+- Unified Endpoint Functionality: This ensured that the unified access point reliably routes traffic to both the EC2 application and the S3 bucket based on the request path.
+
+### Conclusion:
+
+In conclusion, this project offer a milestone undesrtanding and implementation of a unified access architecture using AWS services. By integrating EC2 and S3 with a reverse proxy, we've created a flexible and scalable infrastructure capable of supporting Zappy e-bank's dynamic financial services.
+
+### Challenges and Solutions:
+- Configuration of the Nginx server: To achieve the unified access point with reverse proxy, there was an issue with configuration and then I had to look through the code and the S3 bucket link to confirm there is any breakage. This was resolved and was able to view application via Elastic IP and S3 bucket link.
 
