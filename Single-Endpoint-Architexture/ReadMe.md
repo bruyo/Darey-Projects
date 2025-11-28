@@ -289,3 +289,18 @@ In conclusion, this project offer a milestone undesrtanding and implementation o
 ### Challenges and Solutions:
 - Configuration of the Nginx server: To achieve the unified access point with reverse proxy, there was an issue with configuration and then I had to look through the code and the S3 bucket link to confirm there is any breakage. This was resolved and was able to view application via Elastic IP and S3 bucket link.
 
+
+# Configure Reverse Proxy using Azure
+
+## Create your Virtual Machine:
+
+Create your VM and name it Zappy e-Bank.
+
+- Log into Azure and click on VM
+
+![Azure-HP](./img/Create-VM.JPG)
+
+![VM-Homepage](./img/VM-page.JPG)
+
+![Click-vm](./img/Click-VM.JPG)
+
