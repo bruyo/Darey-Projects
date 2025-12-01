@@ -6,7 +6,7 @@ You can imagine your computer or phone. It stores all your pictures, files, and 
 
 ## What is AWS Cloud?
 
-There are many cloud providers like Aure, Google Cloud Platform, IBM cloud etc, each offering range of services for businesses and individuals.
+There are many cloud providers like Azure, Google Cloud Platform, IBM cloud etc, each offering range of services for businesses and individuals.
 
 Amazon Web Services (AWS) is one of the leading cloud providers in the market, providing comprehensive suite of cloud computing services. It offers a vast array of computing resources, including servers, storage,databases, networking, and more, all delivered over the internet. It's like a huge digital world where companies and people can use really strong computers without having to invest in physical hardware.
 
@@ -97,7 +97,7 @@ Your payment process will be initiated. Please be rest assured that your payment
 ![homepage](./img/Homepage.JPG)
 
 
-### Conclsuion
+### Conclusion
 
 In conclusion, for those having challenges with their debit, you might have to clear your cache, try another browser or debit/credit card.
 
