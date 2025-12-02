@@ -219,4 +219,6 @@ the policy is now atteched to the Development-team group, granting full access t
 
 ### Conclusion
 
-In conclusion, we have been able to securely create the different users Eric, jack and Ade. We also gave Eric full access to EC2 by creating a policy while both Jack and Ade were added to the development group and also given full access to both EC2 and S3 by creating a policy.
+In conclusion, we have been able to securely create the different users Eric, jack and Ade. We also gave Eric full access to EC2 by creating a policy while both Jack and Ade were added to the development group and also given full access to both EC2 and S3 by creating a policy. This fully demonstrates how who can have access and use the aws resources through the help of AWS Identity and Access Management.
+
+
