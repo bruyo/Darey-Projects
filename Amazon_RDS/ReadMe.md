@@ -202,7 +202,7 @@ If you want to show tables inside the database,
 
 'SHOW TABLES;'
 
-1[Show-tables](./img/show-tables.JPG)
+![Show-tables](./img/show-tables.JPG)
 
 You've successfully created a database and connected it to EC2 instance. Plus, you've effortlessly accessed and explored the database tables. Great job on reaching this important milestone.
 
