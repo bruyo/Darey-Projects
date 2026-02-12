@@ -131,7 +131,7 @@ summary'
 
 ![Execute](./img/execute.JPG)
 
-To run it is either use 
+To run it, either use 
 
 bash project.sh <instance-count> <s3-bucket-prefix>
 
