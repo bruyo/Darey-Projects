@@ -28,6 +28,7 @@ One of DataWise Solution's clients, a burgeoning e-commerce startup, is looking 
 ############################
 # ENVIRONMENT VARIABLES
 ############################
+
 export AWS_REGION="us-east-1"
 export AMI_ID="ami-0c1fe732b5494dc14"  
 export INSTANCE_TYPE="t3.micro"
@@ -36,6 +37,7 @@ export KEY_NAME="wordpress"
 ############################
 # COMMAND LINE ARGUMENTS
 ############################
+
 INSTANCE_COUNT=$1
 BUCKET_PREFIX=$2
 
@@ -47,12 +49,14 @@ fi
 ############################
 # ARRAYS
 ############################
+
 EC2_INSTANCE_IDS=()
 S3_BUCKETS=()
 
 ############################
 # ERROR HANDLING
 ############################
+
 error_exit() {
   echo "❌ ERROR: $1"
   exit 1
@@ -114,6 +118,7 @@ summary() {
 ############################
 # MAIN EXECUTION
 ############################
+
 create_ec2_instances
 create_s3_buckets
 summary'
