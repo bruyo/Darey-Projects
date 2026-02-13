@@ -251,6 +251,90 @@ fi'
 
 You can see that the script runs on the different environments based on the environment variable.
 
+- Edit and run script to provision 2 ec2 instances dynamically based on the environment variables.
+
+'sudo nano aws_cloud_manager.sh'
+
+'#!/bin/bash
+set -euo pipefail
+
+############################
+# ARGUMENT VALIDATION
+############################
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <environment>"
+    exit 1
+fi
+
+ENVIRONMENT=$1
+INSTANCE_COUNT=2
+AWS_REGION="us-east-1"
+INSTANCE_TYPE="t3.micro"
+KEY_NAME="wordpress"
+AMI_ID="ami-0c1fe732b5494dc14"   
+TAG_PREFIX="cloud-manager"
+
+############################
+# ENVIRONMENT CHECK
+############################
+case "$ENVIRONMENT" in
+  local|testing|production)
+    echo "🚀 Running script for $ENVIRONMENT environment..."
+    ;;
+  *)
+    echo "❌ Invalid environment. Use local | testing | production"
+    exit 2
+    ;;
+esac
+
+############################
+# PROVISION EC2 INSTANCES
+############################
+echo "🖥️ Launching $INSTANCE_COUNT EC2 instances..."
+
+INSTANCE_IDS=$(aws ec2 run-instances \
+  --region "$AWS_REGION" \
+  --image-id "$AMI_ID" \
+  --instance-type "$INSTANCE_TYPE" \
+  --count "$INSTANCE_COUNT" \
+  --key-name "$KEY_NAME" \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${TAG_PREFIX}-${ENVIRONMENT}},{Key=Environment,Value=${ENVIRONMENT}}]" \
+  --query "Instances[*].InstanceId" \
+  --output text)
+
+echo "✅ EC2 Instances created:"
+for id in $INSTANCE_IDS; do
+  echo " - $id"
+done'
+
+
+![Script](./img/ec2-test.JPG)
+
+- Run script.
+
+'./aws_cloud_manager.sh testing'
+
+![Test](./img/test-test.JPG)
+
+![Instances](./img/test-instances.JPG)
+
+
+'./aws_cloud_manager.sh production'
+
+![Test](./img/test-prod.JPG)
+
+![Instances](./img/prod-instances.JPG)
+
+
+'./aws_cloud_manager.sh local'
+
+![Test](./img/test-local.JPG)
+
+![Instances](./img/local-instances.JPG)
+
+
+You can see it automatically provision two ec2 instances.
+
 
 
 
