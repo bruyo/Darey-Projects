@@ -380,7 +380,7 @@ activate_infra_environment'
 
 ![Test](./img/prod.JPG)
 
-
+You have successfully set a scirpt to confirm if AWS CLI is installed and also authenticate your AWS profile.
 
 
 
