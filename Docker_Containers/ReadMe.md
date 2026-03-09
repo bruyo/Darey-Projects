@@ -34,6 +34,12 @@ In this case,
 
 ![Run](./img/running-image.JPG)
 
+- Run the System Information Command
+
+'uname -a'
+
+![uname-a](./img/uname%20-a.JPG)
+
 - **Launching Containers with Different Options**
 
 Docker provides various options to customize the behaviour of containers. For example, you can specify environment variables, map ports, and mount volumes. Here's an example of running a container with a specific environment variable:
