@@ -121,7 +121,7 @@ The "echo" command creates a Docket APT repository configuration entry for the U
 
 'sudo apt-get update'
 
-![Update](./img/update-apt.JPG) vcv  qs3
+![Update](./img/update-apt.JPG) 
 
 - Install the latest version of docker.
 
