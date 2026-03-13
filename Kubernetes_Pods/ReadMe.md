@@ -45,4 +45,55 @@ From our knowledge of docker, we know Container represents a lightweight, standa
 
 - **Pod Definition with containers:** In the Kubernetes world, containers come to life within Pods. Developers define a Pod YAML file that specifies the containers to run, their images, and other configuration details. This Pod becomes the unit of deployment, representing a cohesive application.
 
- Using **'kubectl'**, we can deploy Pods and, consequently, the containers within them to the Minikube cluster. This process ensures that the defined containers work in concert within the shared context of a Pod.
+Using **'kubectl'**, we can deploy Pods and, consequently, the containers within them to the Minikube cluster. This process ensures that the defined containers work in concert within the shared context of a Pod.
+
+Let's define a Pod YAML file for the Container:
+
+'nano nginx-pod.yaml'
+
+'apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"'
+
+
+![yaml-file](./img/yaml-file.JPG)
+
+Explanation of Key Sections
+
+| Section      | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| `apiVersion` | Kubernetes API version used to create the resource             |
+| `kind`       | Type of resource (Pod, Deployment, Service, etc.)              |
+| `metadata`   | Information about the pod such as name and labels              |
+| `spec`       | The specification of the pod                                   |
+| `containers` | List of containers that will run inside the pod                |
+| `image`      | Container image pulled from a registry (Docker Hub, ECR, etc.) |
+| `ports`      | Network port exposed by the container                          |
+| `resources`  | CPU and memory limits assigned to the container                |
+
+
+- Create the Pod.
+
+'kubectl apply -f nginx-pod.yaml'
+
+![create-pod](./img/created-pod.JPG)
+
+- Verify the Pod.
+
+'kubectl get pods'
+
+![verify](./img/get-pod.JPG)
+
