@@ -215,7 +215,7 @@ The provided YAML snippet defines a Kubernetes Service exposing the Nginx applic
 
 - **apiVersion (apps/v1):** Specifies the Kubernetes API version for the object being created, in this case, a Service.
 
-- **Kind (Deployment):** Defines the type of Kubernetes resources being created, which is a Service. Services provide a stable endpoint for accessing a set of Pods.
+- **Kind (Service):** Defines the type of Kubernetes resources being created, which is a Service. Services provide a stable endpoint for accessing a set of Pods.
 
 - **Metadata:** Contains metadata for the Service, including the name of the Service, which is set to "my-nginx-service".
 

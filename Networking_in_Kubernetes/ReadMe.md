@@ -95,4 +95,24 @@ Now, within the BusyBox container, you can use tools like curl or wget to access
 
 ![test](./img/test.JPG)
 
+Results:
+
+**'wget: can't open 'index.html': File exists'**
+
+This is actually a good sign — your Nginx container is working.
+
+it simply means that:
+
+- wget successfully connected to http://localhost.
+
+- tried to save the response as index.html, but that file already exists in /usr/share/nginx/html and it refused to overwrite it.
+
+This confirms
+
+- Nginx is running.
+
+- Port 80 is working inside the container.
+
+- Pod/container networking is fine.
+
 This demonstrates how containers within the same pod can communicate with each other using 'localhost'.
