@@ -70,6 +70,19 @@ As an engineer, we need to automate things and make our work easier in possible 
 
 Now, we can go ahead to make some changes in any file in the GitHub repository and push the changes to the master branch.
 
+- Clone your repository to your local computer and create a "README.md" file.
+
+- Push to the GitHub repository.
+
+'''git clone https://github.com/bruyo/jenkins-scm.git'''
+
+![git-clone](./img/git-clone.JPG)
+
+![Readme-file](./img/readme-file.JPG)
+
+![Push](./img/git-push.JPG)
+
+![test](./img/test.JPG)
 
 
  
