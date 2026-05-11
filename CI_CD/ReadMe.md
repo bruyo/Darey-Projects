@@ -10,8 +10,6 @@ This project is designed to provide a hands-on learning experience through the e
 
 ### Why is this relevant?
 
-Imagine you're a chef in a busy restaurant, every dish you prepare is like a piece of a software code. Without a systematic approach, you might end up with orders being mixed up, dishes taking too long to prepare, or worse, the quality of food being inconsistent. This is where a well-organized kitchen, with clear processes and automation (like having appliances that precisely time and cook parts of the dishes), comes into play. In software development, CI/CD is akin to this effeicient kitchen. It ensures that your dishes (software builds) are consistently being cooked (built, tested, deployed) with precision and efficiency. By learning GitHub Actions and CI/CD, you're essentially learning how to set up and manage your high-tech kitchen in the software world, allowing you to serve dishes faster, with higher quality, and with fewer kitchen mishaps (bugs and deployment issues).
-
 ### Understanding Continuous Integration and Continuous Deployment
 
 - Continuous Integration (CI) is the practice of merging all developers' working copies to a shared mainline several times a day.
@@ -90,9 +88,11 @@ Imagine you're a chef in a busy restaurant, every dish you prepare is like a pie
 
 - Clone it to the local machine. Go to your terminal and paste the command.
 
-'git remote add origin https://github.com/bruyo/my-web-app.git'
+'git clone https://github.com/bruyo/my-web-app.git'
 
-![Remote-cloning](./img/remote-repo.JPG)
+![clone](./img/clone.JPG)
+
+![Repo-cloning](./img/remote-repo.JPG)
 
 **Create a Simple Node.js Application:**
 
@@ -128,6 +128,20 @@ app.listen(port, () => {
 **Writing your first GitHub Action Workflow:**
 
 -  Create a '.github/workflows' directory in your repositroy.
+
+'''mkdir .github
+'''
+
+'''cd .github
+'''
+
+'''mkdir workflows
+'''
+
+'''cd workflows
+'''
+
+![workflow](./img/workflow.JPG)
 
 - Add a workflow file.
 
@@ -211,12 +225,104 @@ build:
 
 This workflow is a basic example for a Node.js project, demonstrating how to automate testing across different Node.js versions and ensuring that your code integrates and works as expected in a clean environment.
 
+[Push-to-repository](./img/git-push.JPG)
+
 **Testing and Deployment:**
 
-- Add automated tests for your application.
+- Add automated tests for your application by adding the following workflow script to automate testing across different Node.js versions.
 
-- Create a workflow for deployment.
+Replace the script on the 'node.js.yml' file with the script below.
 
+'''name: Node.js CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # -------------------------
+  # CI: Build & Test
+  # -------------------------
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build --if-present
+
+      - name: Run tests
+        run: npm test
+'''
+
+![Script](./img/script.JPG)
+
+
+- Create a workflow for deployment by creating a file named deploy.js and paste the script below.
+
+'''nano deploy.js
+'''
+
+'''
+  # -------------------------
+  # CD: Deployment
+  # -------------------------
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build   # ensures build + tests pass first
+
+    # Only deploy on push to main (not PRs)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build --if-present
+
+      # -------------------------
+      # Example Deployment Step
+      # -------------------------
+      - name: Deploy to server
+        run: |
+          echo "Deploying application..."
+          # Replace this with your real deployment command
+          # Examples:
+          # scp -r ./build user@server:/var/www/app
+          # ssh user@server "pm2 restart app"
+          # or deploy to cloud (AWS, Azure, Vercel, etc.)
+'''
+
+![Deploy](./img/deploy.JPG)
+
+![test](./img/action.JPG)
 
 **Experiment and Learn:**
 
