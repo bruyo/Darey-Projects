@@ -88,7 +88,9 @@ This project is designed to provide a hands-on learning experience through the e
 
 - Clone it to the local machine. Go to your terminal and paste the command.
 
-'git clone https://github.com/bruyo/my-web-app.git'
+```bash
+git clone https://github.com/bruyo/my-web-app.git'
+```
 
 ![clone](./img/clone.JPG)
 
@@ -98,8 +100,9 @@ This project is designed to provide a hands-on learning experience through the e
 
 - Initialize a Node.js project ('npm init').
 
-'''npm init
-'''
+```bash
+npm init
+```
 
 ![npm-init](./img/npm.JPG)
 
@@ -107,9 +110,12 @@ This project is designed to provide a hands-on learning experience through the e
 
 - Add your code to the repository and push to GitHub.
 
-'''nano index.js'''
+```bash
+nano index.js
+```
 
-'''// Example: index.js
+```bash
+// Example: index.js
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -119,7 +125,7 @@ app.get('/', (req, res) => {"\n     res.send('Hello World!');\n   "});
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
-'''
+```
 
 
 ![Code](./img/code-snippet.JPG)
@@ -129,26 +135,32 @@ app.listen(port, () => {
 
 -  Create a '.github/workflows' directory in your repositroy.
 
-'''mkdir .github
-'''
+```bash
+mkdir .github
+```
 
-'''cd .github
-'''
+```bash
+cd .github
+```
 
-'''mkdir workflows
-'''
+```bash
+mkdir workflows
+```
 
-'''cd workflows
-'''
+```bash
+cd workflows
+```
 
 ![workflow](./img/workflow.JPG)
 
 - Add a workflow file.
 
-'''nano node.js.yml
-'''
+```bash
+nano node.js.yml
+```
 
-'''# Example: .github/workflows/node.js.yml
+```bash
+# Example: .github/workflows/node.js.yml
 
 # Name of the workflow
 name: Node.js CI
@@ -194,8 +206,7 @@ build:
 
     - # Runs tests as defined in the project's package.json
     run: npm test
-    '''
-
+```
 
 ![code](./img/code-snippet-1.JPG)
 
@@ -233,8 +244,8 @@ This workflow is a basic example for a Node.js project, demonstrating how to aut
 
 Replace the script on the 'node.js.yml' file with the script below.
 
-'''name: Node.js CI/CD
-
+```bash
+name: Node.js CI/CD
 on:
   push:
     branches: [ main ]
@@ -242,16 +253,11 @@ on:
     branches: [ main ]
 
 jobs:
-  # -------------------------
-  # CI: Build & Test
-  # -------------------------
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
-
+        node-version: [18.x, 20.x]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -270,17 +276,18 @@ jobs:
 
       - name: Run tests
         run: npm test
-'''
+```
 
 ![Script](./img/script.JPG)
 
 
 - Create a workflow for deployment by creating a file named deploy.js and paste the script below.
 
-'''nano deploy.js
-'''
+```bash
+nano deploy.js
+```
 
-'''
+```bash
   # -------------------------
   # CD: Deployment
   # -------------------------
@@ -318,9 +325,15 @@ jobs:
           # scp -r ./build user@server:/var/www/app
           # ssh user@server "pm2 restart app"
           # or deploy to cloud (AWS, Azure, Vercel, etc.)
-'''
+```
 
 ![Deploy](./img/deploy.JPG)
+
+- Add a lock file with code below.
+
+```bash
+npm install
+```
 
 ![test](./img/action.JPG)
 
@@ -329,3 +342,30 @@ jobs:
 - Modify workflows to see how changes affect the CI/CD process.
 
 - Try adding different types of tests (unit tests, integration tests).
+
+1. Create a test file named "test.js". Copy and paste the code snippet below and save it on the file.
+
+```bash
+nano test.js
+```
+
+```bash
+// __tests__/sample.test.js
+test('basic test', () => {
+  expect(1 + 1).toBe(2);
+});
+```
+
+2. Install jest.
+
+```bash
+npm install --save-dev jest
+```
+
+3. Downgrade the jest version.
+
+```bash
+npm install --save-dev jest@28
+```
+
+![Test](./img/install-jest.JPG)
