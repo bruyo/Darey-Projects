@@ -418,6 +418,8 @@ jobs:
           echo "Received value from previous step: ${{ steps.step-one.outputs.value }}"
 ```
 
+![Test](./img/test-1.JPG)
+
 ### Configuring Build Matrices
 
 - Implement parallel and matrix builds.
@@ -499,6 +501,7 @@ jobs:
       - name: Run Tests
         run: npm test
 ```
+![Test](./img/test-2.JPG)
 
 ### Complete Advanced Matrix Workflow
 
@@ -535,6 +538,7 @@ jobs:
       - name: Run Tests
         run: npm test
 ```
+![Test](./img/test-3.JPG)
 
 ### Production-Level Matrix
 
@@ -580,6 +584,7 @@ jobs:
       - name: Run Tests
         run: npm test
 ```
+![Test](./img/test-4.JPG)
 
 ### Best Practices for Matrix Builds
 
