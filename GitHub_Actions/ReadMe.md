@@ -279,11 +279,10 @@ test('adds 2 + 2 correctly', () => {
 
 - They allow you to dynamically pass configuration and settings.
 
+```bash
 env:
   CUSTOM_VAR: value
   # Define an environment variable 'CUSTOM_VAR' at the workflow level.
-
-```bash
 jobs:
   example:
     runs-on: ubuntu-latest
