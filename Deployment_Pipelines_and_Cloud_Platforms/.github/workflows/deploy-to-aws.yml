@@ -1,0 +1,48 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Configure AWS credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Verify AWS CLI
+      - name: Verify AWS CLI
+        run: aws sts get-caller-identity
+
+      # Deploy application
+      - name: Deploy to AWS
+        run: |
+          echo "Starting deployment..."
+
+          # Example deployment commands
+
+          # List S3 buckets
+          aws s3 ls
+
+          # Upload website files to S3
+          # aws s3 sync . s3://your-bucket-name --delete
+
+          # Deploy with CodeDeploy
+          # aws deploy create-deployment \
+          #   --application-name MyApplication \
+          #   --deployment-group-name MyDeploymentGroup \
+          #   --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+
+          echo "Deployment completed!"
