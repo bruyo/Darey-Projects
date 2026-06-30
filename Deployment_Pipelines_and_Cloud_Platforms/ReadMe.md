@@ -115,6 +115,12 @@ jobs:
 
 ![access-key](./img/access-key.JPG)
 
+![create-key](./img/create-secret.JPG)
+
+![Description](./img/description-key.JPG)
+
+![secret-key](./img/secret-key.JPG)
+
 - Configure aws on your terminal.
 
 ```bash
@@ -164,7 +170,7 @@ jobs:
       with:
         aws-access-key-id: ${{" secrets.AWS_ACCESS_KEY_ID "}}
         aws-secret-access-key: ${{" secrets.AWS_SECRET_ACCESS_KEY "}}
-        aws-region: us-east-1
+        aws-region: us-west-2
       # Configures AWS credentials from GitHub secrets.
 
     - name: Deploy to AWS
@@ -222,7 +228,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: us-west-2
 
       - name: Deploy to Development
         run: |
@@ -244,7 +250,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: us-west-2
 
       - name: Deploy to Staging
         run: |
@@ -266,7 +272,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: us-west-2
 
       - name: Deploy to Production
         run: |
@@ -274,3 +280,6 @@ jobs:
           # Add production deployment commands here
 ```
 
+- Test 
+
+![test](./img/test.JPG)
