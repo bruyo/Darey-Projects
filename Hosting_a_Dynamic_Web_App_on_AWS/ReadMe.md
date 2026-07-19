@@ -612,30 +612,28 @@ nano main.tf
 ```
 
 ```bash
+# -----------------------------------------------
+# Provider
+# -----------------------------------------------
 provider "aws" {
   region = var.aws_region
-}
 
-data "aws_caller_identity" "current" {}
-
-# -----------------------------------------------
-# ECR Module
-# -----------------------------------------------
-module "ecr" {
-  source = "./modules/ecr"
-
-  repository_name = "${var.project_name}-${var.environment}"
-  environment     = var.environment
-  scan_on_push    = true
-  max_image_count = 10
-
-  tags = {
-    Project = var.project_name
+  default_tags {
+    tags = {
+      Project     = var.project_name
+      Environment = var.environment
+      ManagedBy   = "terraform"
+    }
   }
 }
 
 # -----------------------------------------------
-# VPC — use default VPC for simplicity
+# Current AWS account details
+# -----------------------------------------------
+data "aws_caller_identity" "current" {}
+
+# -----------------------------------------------
+# Default VPC and Subnets
 # -----------------------------------------------
 data "aws_vpc" "default" {
   default = true
@@ -649,7 +647,26 @@ data "aws_subnets" "default" {
 }
 
 # -----------------------------------------------
-# ECS Module
+# ECR Module — container image registry
+# -----------------------------------------------
+module "ecr" {
+  source = "./modules/ecr"
+
+  repository_name          = "${var.project_name}-${var.environment}"
+  environment              = var.environment
+  image_tag_mutability     = "MUTABLE"
+  scan_on_push             = true
+  lifecycle_policy_enabled = true
+  max_image_count          = var.max_image_count
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+# -----------------------------------------------
+# ECS Module — cluster, task definition, service
 # -----------------------------------------------
 module "ecs" {
   source = "./modules/ecs"
@@ -658,16 +675,17 @@ module "ecs" {
   app_name        = var.project_name
   environment     = var.environment
   container_image = "${module.ecr.repository_url}:latest"
-  container_port  = 3000
-  cpu             = 256
-  memory          = 512
-  desired_count   = 1
+  container_port  = var.container_port
+  cpu             = var.cpu
+  memory          = var.memory
+  desired_count   = var.desired_count
   vpc_id          = data.aws_vpc.default.id
   public_subnet_ids = data.aws_subnets.default.ids
   app_env         = var.environment
 
   tags = {
-    Project = var.project_name
+    Project     = var.project_name
+    Environment = var.environment
   }
 }
 ```
@@ -675,5 +693,207 @@ module "ecs" {
 - Use the ECR and ECS modules to create the necessary infrastructure for hosting the web app.
 
 ```bash
-mkdir ecs
+nano versions.tf
 ```
+
+```bash
+terraform {
+  required_version = ">= 1.0.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+```
+
+```bash
+nano variables.tf
+```
+
+```bash
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "project_name" {
+  description = "Project name used for naming resources"
+  type        = string
+  default     = "ecs-webapp"
+}
+
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+  default     = "dev"
+}
+
+variable "container_port" {
+  description = "Port the container listens on"
+  type        = number
+  default     = 3000
+}
+
+variable "cpu" {
+  description = "CPU units for ECS task"
+  type        = number
+  default     = 256
+}
+
+variable "memory" {
+  description = "Memory in MB for ECS task"
+  type        = number
+  default     = 512
+}
+
+variable "desired_count" {
+  description = "Number of ECS tasks to run"
+  type        = number
+  default     = 1
+}
+
+variable "max_image_count" {
+  description = "Maximum number of ECR images to retain"
+  type        = number
+  default     = 10
+}
+```
+
+```bash
+nano outputs.tf
+```
+
+```bash
+# -----------------------------------------------
+# ECR Outputs
+# -----------------------------------------------
+output "ecr_repository_url" {
+  description = "ECR repository URL for pushing Docker images"
+  value       = module.ecr.repository_url
+}
+
+output "ecr_repository_name" {
+  description = "ECR repository name"
+  value       = module.ecr.repository_name
+}
+
+output "ecr_registry_id" {
+  description = "ECR registry ID"
+  value       = module.ecr.registry_id
+}
+
+# -----------------------------------------------
+# ECS Outputs
+# -----------------------------------------------
+output "ecs_cluster_name" {
+  description = "ECS cluster name"
+  value       = module.ecs.cluster_name
+}
+
+output "ecs_service_name" {
+  description = "ECS service name"
+  value       = module.ecs.service_name
+}
+
+output "ecs_task_definition_arn" {
+  description = "ECS task definition ARN"
+  value       = module.ecs.task_definition_arn
+}
+
+# -----------------------------------------------
+# Useful commands output
+# -----------------------------------------------
+output "docker_login_command" {
+  description = "Command to authenticate Docker with ECR"
+  value       = "aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${module.ecr.repository_url}"
+}
+
+output "docker_push_commands" {
+  description = "Commands to build, tag and push Docker image to ECR"
+  value       = <<-EOT
+    docker build -t ${var.project_name} ./app
+    docker tag ${var.project_name}:latest ${module.ecr.repository_url}:latest
+    docker push ${module.ecr.repository_url}:latest
+  EOT
+}
+
+output "ecs_deploy_command" {
+  description = "Command to force a new ECS deployment"
+  value       = "aws ecs update-service --cluster ${module.ecs.cluster_name} --service ${module.ecs.service_name} --force-new-deployment"
+}
+```
+
+**Deployment:**
+
+- Build the Docker image of the webb app.
+
+- Push the Docker image to Amazon ECR repository created by Terraform.
+
+- Run **'terraform init'** and **'terraform apply'** to deploy the ECS cluster and the web app.
+
+- Access the web app through the public ip or DNS of the ECS service.
+
+```bash
+terraform init
+```
+
+![init](./img/init.JPG)
+
+
+```bash
+terraform apply
+```
+
+![apply](./img/t-apply.JPG)
+
+![test](./img/test.JPG)
+
+![test](./img/ecs.JPG)
+
+- Authenticate Docker with ECR.
+
+```bash
+aws ecr get-login-password --region us-east-1 | \
+  docker login --username AWS --password-stdin \
+  653832775486.dkr.ecr.us-east-1.amazonaws.com
+```
+
+- Build the image.
+
+```bash
+cd ecs-webapp
+docker build -t ecs-webapp:latest .
+```
+
+![web](./img/web.JPG)
+
+- Tag the image for ECR.
+
+```bash
+docker tag ecs-webapp:latest \
+  653832775486.dkr.ecr.us-east-1.amazonaws.com/ecs-webapp-dev:latest
+```
+
+- Push to ECR.
+
+```bash
+docker push \
+  653832775486.dkr.ecr.us-east-1.amazonaws.com/ecs-webapp-dev:latest
+```
+
+![push](./img/push.JPG)
+
+- Verify image is in ECR
+
+```bash
+aws ecr list-images --repository-name ecs-webapp-dev
+```
+
+![verify](./img/verify.JPG)
+
+![test](./img/test-1.JPG)
+
