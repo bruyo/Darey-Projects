@@ -1101,3 +1101,11 @@ http://98.82.19.48/
 ```
 
 ![test](./img/test-1.JPG)
+
+- Clean up.
+
+```bash
+terraform destroy
+```
+
+![clean-up](./img/destroy.JPG)
