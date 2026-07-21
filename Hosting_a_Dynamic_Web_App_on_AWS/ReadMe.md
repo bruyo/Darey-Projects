@@ -894,6 +894,7 @@ aws ecr list-images --repository-name ecs-webapp-dev
 ```
 
 ![verify](./img/verify.JPG)
+git add .
 
 ![test](./img/test-1.JPG)
 
