@@ -161,4 +161,4 @@ git push -u origin main
 
 ![push](./img/push.JPG)
 
-![Push](./img/push.JPG)
+![Push](./img/test.JPG)
