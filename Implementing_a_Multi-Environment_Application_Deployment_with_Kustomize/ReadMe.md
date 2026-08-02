@@ -661,3 +661,14 @@ EOF
 ```
 
 ![test](./img/test-1.JPG)
+
+
+- Clean up:
+
+```bash
+eksctl delete cluster \
+  --name my-kustomize-cluster \
+  --region us-west-2
+```
+
+![delete](./img/delete.JPG)
