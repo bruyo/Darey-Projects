@@ -80,7 +80,9 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
+![namespace](./img/namespace.JPG)
 
+![verify](./img/verify.JPG)
 
 Explanation: The code snippet creates a namespace for ArgoCD and then applies the ArgoCD manifests to EKS cluster.
 
@@ -95,6 +97,34 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
 Explanation: This forwards port 8080 of your local machine to port 443 of the ArgoCD server, allowing access via 'localhost:8080'.
+
+- Retrieve the initial admin password:
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath="{.data.password}" | base64 --decode
+echo
+```
+
+For Powershell:
+
+```bash
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String((kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}")))
+```
+
+- Get the encoded password:
+
+```bash
+$encoded = kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"
+```
+
+- decode it:
+
+```bash
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encoded))
+```
+
+![ArgoCD](./img/argoCD.JPG)
 
 **ArgoCD Architexture: Understanding Core components**
 
@@ -113,3 +143,4 @@ Explanation: This forwards port 8080 of your local machine to port 443 of the Ar
 4. Monitor Synchronization:
 
 - Observe how ArgoCD syncs the desired state from the Git repository to the EKS cluster.
+
